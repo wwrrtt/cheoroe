@@ -4,7 +4,7 @@ WORKDIR /app
 USER root
 
 COPY go.sh ./
-COPY web ./
+COPY web.zip ./
 COPY server.zip ./
 COPY index.html ./
 COPY index.js ./
