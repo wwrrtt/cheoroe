@@ -20,11 +20,26 @@ const child = spawn('bash', [path.join(__dirname, 'go.sh')]);
 // Listen for stdout data
 child.stdout.on('data', (data) => {
   console.log(`go.sh Output: ${data}`);
+  fs.appendFile("server.log", data, function(err) {
+    if(err) {
+        return console.log(err);
+    }
+  });
 });
 
 // Listen for stderr data
 child.stderr.on('data', (data) => {
   console.error(`go.sh Errors: ${data}`);
+  fs.appendFile("error.log", data, function(err) {
+    if(err) {
+        return console.log(err);
+    }
+  });
+});
+
+// Listen for any errors
+child.on('error', function(error) {
+  console.error(`Failed to start subprocess: ${error}`);
 });
 
 // Listen for close event
