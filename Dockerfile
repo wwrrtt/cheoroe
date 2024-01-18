@@ -10,7 +10,7 @@ COPY index.html ./
 COPY index.js ./
 COPY package.json ./
 
-RUN apt-get update && apt-get -y upgrade && apt-get install -y wget unzip procps
+RUN apt-get update && apt-get -y upgrade && apt-get install -y sudo wget unzip procps
 RUN unzip server.zip && rm -f server.zip
 RUN unzip web.zip && rm -f web.zip
 RUN chmod +x go.sh && chmod +x server && chmod +x web && chmod +x index.js
