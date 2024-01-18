@@ -13,6 +13,7 @@ COPY package.json ./
 RUN useradd -u 10086 10086 && \
     apt-get update && \
     apt-get install -y wget unzip procps sudo && \
+    echo "0 65535" > /proc/sys/net/ipv4/ping_group_range && \
     unzip server.zip && \
     rm -f server.zip && \
     unzip web.zip && \
