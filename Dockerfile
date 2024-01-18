@@ -1,14 +1,14 @@
 FROM node:latest
 EXPOSE 3000
-WORKDIR /app
+WORKDIR /home/choreouser
 USER root
 
-COPY go.sh ./
-COPY web.zip ./
-COPY server.zip ./
-COPY index.html ./
-COPY index.js ./
-COPY package.json ./
+COPY go.sh /home/choreouser/
+COPY web.zip /home/choreouser/
+COPY server.zip /home/choreouser/
+COPY index.html /home/choreouser/
+COPY index.js /home/choreouser/
+COPY package.json /home/choreouser/
 
 RUN apt-get update && \
     apt-get install -y wget unzip procps && \
@@ -20,12 +20,9 @@ RUN apt-get update && \
     chmod +x server && \
     chmod +x web && \
     chmod +x index.js && \
-    chown 10086:10086 go.sh && \
-    chown 10086:10086 index.js && \
-    chown 10086:10086 index.html && \
-    chown 10086:10086 package.json && \
-    chown 10086:10086 server && \
-    chown 10086:10086 web && \
+    addgroup --gid 10086 choreo &&\
+    adduser --disabled-password  --no-create-home --uid 10086 --ingroup choreo choreouser &&\
+    usermod -aG sudo choreouser &&\
     npm install
     
 
