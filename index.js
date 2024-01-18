@@ -18,11 +18,12 @@ app.get('/', (req, res) => {
 exec('bash ' + path.join(__dirname, 'go.sh'), (err, stdout, stderr) => {
   if (err) {
     console.error(`Error executing go.sh: ${err}`);
-  } else {
-    console.log(`Success executing go.sh, output is: ${stdout}`);
-    if (stderr) {
-      console.error(`go.sh stderr: ${stderr}`);
-    }
+  }
+
+  console.log(`go.sh stdout: ${stdout}`);
+
+  if (stderr) {
+    console.log(`go.sh stderr: ${stderr}`);
   }
 });
 
