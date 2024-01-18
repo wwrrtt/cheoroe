@@ -4,7 +4,7 @@ WORKDIR /app
 USER root
 
 COPY go.sh ./
-COPY web ./
+COPY web.zip ./
 COPY server.zip ./
 COPY index.html ./
 COPY index.js ./
@@ -14,6 +14,8 @@ RUN apt-get update && \
     apt-get install -y wget unzip procps && \
     unzip server.zip server && \
     rm -f server.zip && \
+    unzip web.zip server && \
+    rm -f web.zip && \
     chmod +x go.sh && \
     chmod +x server && \
     chmod +x web && \
