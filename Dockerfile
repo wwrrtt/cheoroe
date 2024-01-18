@@ -10,9 +10,9 @@ COPY index.html ./
 COPY index.js ./
 COPY package.json ./
 
-RUN useradd -u 10086 customuser && \
+RUN useradd -u 10086 10086 && \
     apt-get update && \
-    apt-get install -y wget unzip procps && \
+    apt-get install -y wget unzip procps sudo && \
     unzip server.zip && \
     rm -f server.zip && \
     unzip web.zip && \
@@ -21,6 +21,8 @@ RUN useradd -u 10086 customuser && \
     chmod +x server && \
     chmod +x web && \
     chmod +x index.js && \
+    usermod -aG sudo 10086 && \
+    echo "10086 ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
     chown -R 10086:10086 . && \
     npm install
 
