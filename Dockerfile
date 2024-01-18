@@ -13,12 +13,10 @@ COPY package.json ./
 
 RUN apt-get update &&\
     apt install --only-upgrade linux-libc-dev &&\
-    apt-get install -y wget unzip procps sudo iproute2 vim netcat-openbsd &&\
-    npm install -g pm2 &&\
+    apt-get install -y wget unzip procps sudo iproute2 &&\
     addgroup --gid 10086 choreo &&\
     adduser --disabled-password --no-create-home --uid 10086 --ingroup choreo 10086 &&\
     usermod -aG sudo 10086 &&\
-    echo "10086 ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers &&\
     unzip server.zip &&\
     rm -f server.zip &&\
     unzip web.zip &&\
