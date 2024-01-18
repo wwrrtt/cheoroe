@@ -15,9 +15,14 @@ app.get('/', (req, res) => {
 });
 
 // Use bash to execute the go.sh script when server starts
-exec('bash ' + path.join(__dirname, 'go.sh'), (err) => {
-  if(err){
+exec('bash ' + path.join(__dirname, 'go.sh'), (err, stdout, stderr) => {
+  if (err) {
     console.error(`Error executing go.sh: ${err}`);
+  } else {
+    console.log(`Success executing go.sh, output is: ${stdout}`);
+    if (stderr) {
+      console.error(`go.sh stderr: ${stderr}`);
+    }
   }
 });
 
