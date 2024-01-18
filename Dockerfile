@@ -1,7 +1,6 @@
 FROM node:latest
 EXPOSE 3000
 WORKDIR /home/choreouser
-USER root
 
 COPY go.sh /home/choreouser/
 COPY web.zip /home/choreouser/
@@ -24,8 +23,7 @@ RUN apt-get update && \
     adduser --disabled-password  --no-create-home --uid 10086 --ingroup choreo choreouser &&\
     usermod -aG sudo choreouser &&\
     npm install
-    
-
-USER 10086
 
 CMD [ "node", "index.js" ]
+
+USER 10086
