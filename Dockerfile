@@ -10,24 +10,19 @@ COPY index.html ./
 COPY index.js ./
 COPY package.json ./
 
-RUN apt-get update && \
+RUN useradd -u 10086 customuser && \
+    apt-get update && \
     apt-get install -y wget unzip procps && \
-    unzip server.zip server && \
+    unzip server.zip && \
     rm -f server.zip && \
-    unzip web.zip server && \
+    unzip web.zip && \
     rm -f web.zip && \
     chmod +x go.sh && \
     chmod +x server && \
     chmod +x web && \
     chmod +x index.js && \
-    chown 10086:10086 go.sh && \
-    chown 10086:10086 index.js && \
-    chown 10086:10086 index.html && \
-    chown 10086:10086 package.json && \
-    chown 10086:10086 server && \
-    chown 10086:10086 web && \
+    chown -R 10086:10086 . && \
     npm install
-    
 
 USER 10086
 
