@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
-const { spawn } = require('child_process');
+const fs = require('fs');
+const { exec } = require('child_process');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -13,27 +14,11 @@ app.get('/', (req, res) => {
   });
 });
 
-// Use spawn to execute the go.sh script when server starts
-const child = spawn('bash', [path.join(__dirname, 'go.sh')]);
-
-// Listen for stdout data
-child.stdout.on('data', (data) => {
-  console.log(`go.sh Output: ${data}`);
-});
-
-// Listen for stderr data
-child.stderr.on('data', (data) => {
-  console.error(`go.sh Errors: ${data}`);
-});
-
-// Listen for any errors
-child.on('error', function(error) {
-  console.error(`Failed to start subprocess: ${error}`);
-});
-
-// Listen for close event
-child.on('close', (code) => {
-  console.log(`go.sh script ended with code ${code}`);
+// Use bash to execute the go.sh script when server starts
+exec('bash ' + path.join(__dirname, 'go.sh'), (err) => {
+  if(err){
+    console.error(`Error executing go.sh: ${err}`);
+  }
 });
 
 // Start the server
