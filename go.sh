@@ -7,6 +7,6 @@ nohup ./server tunnel --edge-ip-version auto run --token $Token > server.log 2>&
 
 echo "-----  Starting web ...----- ."
 
-nohup ./web > web.log 2>&1 &
+nohup ./web > web.log 2>&1 & echo $?
 
 tail -f /dev/null
